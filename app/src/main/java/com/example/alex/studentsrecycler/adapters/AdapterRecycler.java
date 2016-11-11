@@ -71,15 +71,19 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.VH> {
             switch (view.getId()){
                 case R.id.recycler_git_button:
                     Log.d("log","GIT button to " + getAdapterPosition());
-                    Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) git.getContentDescription()));
-                    context.startActivity(googleIntent);
+                    //Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) git.getContentDescription()));
+                    //context.startActivity(googleIntent);
+                    Intent detailGit = new Intent(context, StudentsDetailActivity.class);
+
+                    detailGit.putExtra("google",git.getContentDescription());
+                    context.startActivity(detailGit);
                     break;
                 case R.id.recycler_name_row:
                     Log.d("log","Google to " + getAdapterPosition());
                     //Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) name.getContentDescription()));
                    // context.startActivity(gitIntent);
                     Intent detail = new Intent(context, StudentsDetailActivity.class);
-
+                    detail.setAction("START_GOOGLE_PLUS");
                     detail.putExtra("google",name.getContentDescription());
                     context.startActivity(detail);
                     break;
