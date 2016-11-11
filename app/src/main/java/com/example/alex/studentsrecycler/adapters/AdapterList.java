@@ -87,15 +87,19 @@ public class AdapterList extends BaseAdapter {
             switch (view.getId()){
                 case R.id.recycler_git_button:
                     Log.d("log","GIT button to " );
-                    Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse( persons.get(position).getGit()));
-                    context.startActivity(googleIntent);
+                    //Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse( persons.get(position).getGit()));
+                    //context.startActivity(googleIntent);
+                    Intent detailGit = new Intent(context, StudentsDetailActivity.class);
+
+                    detailGit.putExtra("google",persons.get(position).getGit());
+                    context.startActivity(detailGit);
                     break;
                 case R.id.recycler_name_row:
                     Log.d("log","Google to " );
                    // Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(persons.get(position).getGoogle()));
                     //context.startActivity(gitIntent);
                     Intent detail = new Intent(context, StudentsDetailActivity.class);
-
+                    detail.setAction("START_GOOGLE_PLUS");
                     detail.putExtra("google",persons.get(position).getGoogle());
                     context.startActivity(detail);
                     break;
