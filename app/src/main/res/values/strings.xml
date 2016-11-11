@@ -3,4 +3,6 @@
     <string name="git">git</string>
     <string name="listview">ListView</string>
     <string name="recyclerview">RecyclerView</string>
+    <string name="ok">ok</string>
+    <string name="loading">loading data...</string>
 </resources>

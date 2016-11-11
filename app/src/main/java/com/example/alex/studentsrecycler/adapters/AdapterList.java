@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.alex.studentsrecycler.R;
+import com.example.alex.studentsrecycler.activity.StudentsDetailActivity;
 import com.example.alex.studentsrecycler.models.Person;
 
 import java.util.ArrayList;
@@ -91,8 +92,12 @@ public class AdapterList extends BaseAdapter {
                     break;
                 case R.id.recycler_name_row:
                     Log.d("log","Google to " );
-                    Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(persons.get(position).getGoogle()));
-                    context.startActivity(gitIntent);
+                   // Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse(persons.get(position).getGoogle()));
+                    //context.startActivity(gitIntent);
+                    Intent detail = new Intent(context, StudentsDetailActivity.class);
+
+                    detail.putExtra("google",persons.get(position).getGoogle());
+                    context.startActivity(detail);
                     break;
             }
 

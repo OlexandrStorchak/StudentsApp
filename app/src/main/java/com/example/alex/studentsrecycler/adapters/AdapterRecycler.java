@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.alex.studentsrecycler.activity.StudentsDetailActivity;
 import com.example.alex.studentsrecycler.models.Person;
 import com.example.alex.studentsrecycler.R;
 
@@ -70,13 +71,17 @@ public class AdapterRecycler extends RecyclerView.Adapter<AdapterRecycler.VH> {
             switch (view.getId()){
                 case R.id.recycler_git_button:
                     Log.d("log","GIT button to " + getAdapterPosition());
-                    Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) name.getContentDescription()));
+                    Intent googleIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) git.getContentDescription()));
                     context.startActivity(googleIntent);
                     break;
                 case R.id.recycler_name_row:
                     Log.d("log","Google to " + getAdapterPosition());
-                    Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) git.getContentDescription()));
-                    context.startActivity(gitIntent);
+                    //Intent gitIntent = new Intent(Intent.ACTION_VIEW,Uri.parse((String) name.getContentDescription()));
+                   // context.startActivity(gitIntent);
+                    Intent detail = new Intent(context, StudentsDetailActivity.class);
+
+                    detail.putExtra("google",name.getContentDescription());
+                    context.startActivity(detail);
                     break;
             }
 
