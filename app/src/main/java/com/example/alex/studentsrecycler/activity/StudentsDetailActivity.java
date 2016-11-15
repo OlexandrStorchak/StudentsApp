@@ -29,13 +29,65 @@ public class StudentsDetailActivity extends AppCompatActivity {
 
 
         String google = getIntent().getStringExtra("google");
-        if (getIntent().getAction() == "START_GOOGLE_PLUS") {
-            GetGoogleApi getGoogleApi = new GetGoogleApi(this);
-            getGoogleApi.execute(google);
-        } else {
+        String data = getIntent().getDataString();
 
-            GetGitApi getGitApi = new GetGitApi(this);
-            getGitApi.execute(google);
+        if (data == null) {
+            Log.d("log", String.valueOf(getIntent().getData()));
+            if (getIntent().getAction() == "START_GOOGLE_PLUS") {
+                GetGoogleApi getGoogleApi = new GetGoogleApi(this);
+                getGoogleApi.execute(google);
+            } else {
+
+                GetGitApi getGitApi = new GetGitApi(this);
+                getGitApi.execute(google);
+            }
+        } else {
+            Log.d("logLink", String.valueOf(getIntent().getDataString()));
+            if (data.contains("https://github.com/")) {
+
+                data = data.replace("https://github.com/", "");
+                data = data + "/";
+                Log.d("logLink", data);
+                int i = 0;
+                String t = "";
+
+                do {
+
+                    //Log.d("logLink", (String.valueOf(data.charAt(i))));
+                    t = t + String.valueOf(data.charAt(i));
+                    i++;
+
+
+                } while (!String.valueOf(data.charAt(i)).equals("/"));
+
+                Log.d("logLink", t);
+                GetGitApi getGitApi = new GetGitApi(this);
+                getGitApi.execute(t);
+
+            } else if (data.contains("https://plus.google.com/")){
+                data = data.replace("https://plus.google.com/", "");
+                data = data + "/";
+                Log.d("logLink", data);
+                int i = 0;
+                String t = "";
+
+                do {
+
+                    //Log.d("logLink", (String.valueOf(data.charAt(i))));
+                    t = t + String.valueOf(data.charAt(i));
+                    i++;
+
+
+                } while (!String.valueOf(data.charAt(i)).equals("/"));
+
+                Log.d("logLink", t);
+                GetGoogleApi getGoogleApi = new GetGoogleApi(this);
+                getGoogleApi.execute(t);
+
+
+            }
+
+
         }
         //Log.d("log",name);
         avatar = (ImageView) findViewById(R.id.detail_avatar);

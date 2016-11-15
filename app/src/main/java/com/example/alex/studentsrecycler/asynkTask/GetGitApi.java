@@ -39,7 +39,7 @@ public class GetGitApi extends AsyncTask<String, Void, String> {
 
         HttpURLConnection httpConnect = null;
         BufferedReader bufferedReader = null;
-        
+
 
         URL requestGit = null;
         String gitJSon = null;
@@ -58,7 +58,7 @@ public class GetGitApi extends AsyncTask<String, Void, String> {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
-                buffer.append(line).append("\n");
+                buffer.append(line).append(" ");
             }
             if (buffer.length() == 0) {
                 return null;
@@ -71,8 +71,10 @@ public class GetGitApi extends AsyncTask<String, Void, String> {
 
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         } catch (JSONException e) {
             e.printStackTrace();
+            return null;
         }
 
 
@@ -93,16 +95,29 @@ public class GetGitApi extends AsyncTask<String, Void, String> {
 
     void getDataFromJson(String json) throws JSONException {
 
-        JSONObject allData = new JSONObject(json);
-        avatarUrl = allData.getString("avatar_url");
-        gitName = allData.getString("name");
 
+            JSONObject allData = new JSONObject(json);
+            avatarUrl = allData.getString("avatar_url");
+            gitName = allData.getString("name");
+
+
+
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        activity.setTitle("Git loading data...");
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        avatar.setImageBitmap(ava);
-        activity.setTitle("GIT "+gitName);
+        if (gitName != null) {
+            avatar.setImageBitmap(ava);
+            activity.setTitle("GIT " + gitName);
+        } else {
+            activity.setTitle("Nothing to show");
+        }
     }
 }
